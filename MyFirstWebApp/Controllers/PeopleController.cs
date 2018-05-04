@@ -9,8 +9,7 @@ namespace MyFirstWebApp.Controllers
 {
     public class PeopleController : Controller
     {
-        Person person = new Person();
-
+      
         //GET: People
         public ActionResult People()
         {
@@ -38,47 +37,41 @@ namespace MyFirstWebApp.Controllers
             return View(Person.DBPeople);
         }
         
-       public ActionResult index(string searching)
-        {
-            List<Person> PeopleList = new List<Person>();
-            if (searching == "Name")
-            {
-                return View(PeopleList.Where(m => m.Name.Contains(searching) || searching == null).ToList());
+         public ActionResult Search(string searching,string sorting)
+         {
+            return View("People", Person.DBPeople.Where(m => m.Name.StartsWith(searching)|| m.City == searching).ToList());
+            
+         }
 
-            }
-            else
-            {
-                return View(PeopleList.Where(m => m.City.Contains(searching )|| searching == null).ToList());
-            }
-        }
         [HttpGet]
-        public ActionResult AddPeople()
+        public ActionResult Create()
         {
             return View();
         }
         
         [HttpPost]
-         public ActionResult AddPeople(string Name, string PhoneNO, string City )
+         public ActionResult Create(string Name, string PhoneNO,string City )
          {
-            Person preson = new Person();
-            preson.Name = Name;
-            preson.PhoneNO = PhoneNO;
-            preson.City = City;
+            Person person = new Person();
+            person.Name = Name;
+            person.PhoneNO = PhoneNO;
+            person.City = City;
             Person.DBPeople.Add(person);
-            //return View("People",Person.DBPeople);
-            return RedirectToAction("AddPeople");
+            return View("Create",Person.DBPeople);
+           // return RedirectToAction("People");
             
          }
-        [HttpPost]
-        public ActionResult AddPeople([Bind(Include = "Name,PhoneNo,City")]Person person)
+        /*[HttpPost]
+        public ActionResult Index(Person person)
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("AddPeople");
+                Person.DBPeople.Add(person);
+                return RedirectToAction("People");
             }
-            return View();
+            return View(person);
 
-        }
+        }*/
 
         [HttpGet]
         public ActionResult Remove(String Name)
@@ -86,7 +79,7 @@ namespace MyFirstWebApp.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Remove(String Name, List<Person> PeopleList)
+        public ActionResult Remove(String Name, List<Person> DBPeople)
         {
            try
             {
@@ -94,7 +87,7 @@ namespace MyFirstWebApp.Controllers
             }
             catch
             {
-                return View();
+                return View("Remove");
             }
         }
 

@@ -2,14 +2,17 @@
 @model IEnumerable<Person>
 @{
     ViewBag.Title = "People";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
 }
 
 <h2>People List</h2>
 <hr />
 <br/><br/>
 @using (Html.BeginForm("Search", "People", FormMethod.Get))
-{
-    @Html.TextBox("seraching")<input type="submit" value="Search"/>
+{ <div>
+   Search By Name/City: @Html.TextBox("searching")
+    <input type="submit" value="Filter"/>
+    </div>
 }
 <table class="table table-striped">
     <thead>
@@ -44,8 +47,9 @@
       </tbody>  
 </table>
 <hr />
+<h2>Add Person</h2>
 
-@using (Html.BeginForm("AddPerson", "People", FormMethod.Post))
+@using (Html.BeginForm("Create", "People", FormMethod.Post))
 {
 <table>
     <tr>
