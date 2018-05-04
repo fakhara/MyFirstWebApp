@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "FeverCheck";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+<div class="jumbotron">
+    <h1> MY First ASP.NET MVC WebSite</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+</div>
+<form method="post">
+ <fieldset>
+     <legend>FEVER CHECK</legend>
+     <div>
+         <label for=" Enter Numaric Value">Enter Value</label>
+         <input type="text" name=" Enter Value" value="">
+         <label>&nbsp;</label>
+         <input type="submit" value=" Submit" class=" submit" />
+     </div><hr/>
+     <div>
+     <input type="radio" name="Fahrenheit " class="fahrenheit">Fahrenheit<br/>
+     <input type="radio" name="Celsius " class="celsius">Celsius
+     </div>
+    </fieldset>
+</form>
+

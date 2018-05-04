@@ -1,0 +1,36 @@
+﻿@model MyFirstWebApp.Models.GuessingGame
+@{
+    ViewBag.Title = "GuessingGame";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+
+    List<string> guesses = (List<string>)Session["guessSession"];
+}
+<div class="jumbotron">
+    <h1> MY First ASP.NET MVC WebSite</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+</div>
+
+<h2>GuessingGame</h2>
+<hr />
+
+@if (Session["guessSession"] != null)
+{
+    <h2>Guesses</h2>
+    <ol>
+        @foreach (string guess in guesses)
+        {
+            <li>@guess</li>
+        }
+    </ol>
+}
+<form action="@Url.Action("GuessingGame","GuessingGame")" method="post">
+    <input type="number" name="guess" value="@Model.Num" />
+
+    <input type="submit" value="Submit" />
+</form>
+@if (Model.msg != null)
+{
+    <h3>@Model.msg</h3>
+}
+
+

@@ -1,0 +1,32 @@
+﻿@model MyFirstWebApp.Models.FeverCheck
+@{
+    ViewBag.Title = "FeverCheck";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<div class="jumbotron">
+    <h1> MY First ASP.NET MVC WebSite</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+</div>
+
+
+@if (Model.msg != null)
+{
+    <h3>@Model.msg</h3>
+}
+
+<form method="post">
+    <fieldset>
+        <legend>FEVER CHECK</legend>
+        <div>
+            <input type="number" name="temp" value="@Model.Temp">
+            <label>&nbsp;</label>
+            <input type="submit" value=" Submit" class=" submit" />
+        </div><hr />
+        <div>
+            <input type="radio" name="Fahrenheit " class="fahrenheit">Fahrenheit<br />
+            <input type="radio" name="Celsius " class="celsius">Celsius
+        </div>
+    </fieldset>
+</form>
+
