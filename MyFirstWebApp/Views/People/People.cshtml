@@ -6,69 +6,38 @@
 }
 
 <h2>People List</h2>
-<hr />
-<br/><br/>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 @using (Html.BeginForm("Search", "People", FormMethod.Get))
-{ <div>
-   Search By Name/City: @Html.TextBox("searching")
-    <input type="submit" value="Filter"/>
+{
+    <div>
+        Search By Name: @Html.TextBox("Name")
+        Search By City: @Html.TextBox("City")
+        <input type="submit" value="Filter" />
     </div>
 }
 <table class="table table-striped">
     <thead>
-    <tr>
-        <th>Person Name</th>
-        <th>Phone No</th>
-        <th>City</th>
-        <th>Action</th>
-    </tr>
-        </thead>
+        <tr>
+            <th>@Html.ActionLink("Name", "Sort", new { sortOrder = ViewBag.NameSortParm })</th>
+            <th>@Html.DisplayNameFor(model => model.PhoneNO)</th>
+            <th>@Html.ActionLink("City", "Sort", new { sortOrder = ViewBag.CitySortParm })</th>
+            <th>Action</th>
+        </tr>
+    </thead>
     <tbody>
-        @if (Model.Count() == 0)
+     @foreach (var item in Model)
         {
-            <tr>
-                <td colspan="3"style="color:red">
-                    No Match Any Document
-                </td>
-            </tr>
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PhoneNO)</td>
+                    <td>@Html.DisplayFor(modelItem => item.City)</td>
+                    <td>@Html.ActionLink("Delete","Delete", new { id= item.Id })</td>
+                </tr>
         }
-        else
-        {
-            foreach (var item in Model)
-            {
-               <tr>
-                  <td>@item.Name</td>
-                  <td>@item.PhoneNO</td>
-                  <td>@item.City</td>
-                  <td>@Html.ActionLink("Remove", "Remove", new { Name = item.Name })</td>
-               </tr>
-            }
-        }
-      </tbody>  
+        
+    </tbody>
 </table>
-<hr />
-<h2>Add Person</h2>
-
-@using (Html.BeginForm("Create", "People", FormMethod.Post))
-{
-<table>
-    <tr>
-        <td> Name:</td>
-        <td><input type="Text" name="Name" value="" /></td>
-
-    </tr>
-    <tr>
-        <td>Phone  No:</td>
-        <td><input type="Text" name="phoneNO" value="" /></td>
-    </tr>
-    <tr>
-        <td>City   Name:</td>
-        <td><input type="Text" name="City" value="" /></td>
-    </tr>
-    <tr>
-        <td><input type="submit" value="Submit" /></td>
-    </tr>
-</table>
-}
 
 

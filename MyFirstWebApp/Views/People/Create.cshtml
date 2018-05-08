@@ -1,38 +1,51 @@
-﻿@model MyFirstWebApp.Models.Person
+﻿@using MyFirstWebApp.Models
+@model IEnumerable<Person>
+
+
 @{
     ViewBag.Title = "Create";
 }
 
 <h2>Create</h2>
 
-@using (Html.BeginForm("Create","People",FormMethod.Post))
+
+@using (Html.BeginForm("Create", "People", FormMethod.Post))
 {
+    var person = new Person();
+    @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    <fieldset>
+    <fieldset class="form-horizontal">
         <legend>Person</legend>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
+        <div class="Control-group">
+
+            @Html.LabelFor(Model => person.Name, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(Model => person.Name)
+                @Html.ValidationMessageFor(Model => person.Name, null, new { @class = "help-inline" })
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
+        <div class="Control-group">
+            @Html.LabelFor(Model => person.PhoneNO, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(Model => person.PhoneNO)
+                @Html.ValidationMessageFor(Model => person.PhoneNO, null, new { @class = "help-inline" })
+            </div>
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PhoneNO)
+        <div class="Control-group">
+            @Html.LabelFor(model => person.City, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => person.City)
+                @Html.ValidationMessageFor(model => person.City, null, new { @class = "help-inline" })
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PhoneNO)
-            @Html.ValidationMessageFor(model => model.PhoneNO)
+        <div class="form-actions no-color">
+            <input type="submit" value="Create" class="btn" />
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.City)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.City)
-            @Html.ValidationMessageFor(model => model.City)
-        </div>
-        <div>
-        <p><input type="submit" value="Submit" /></p>
-        </div>
-</fieldset>
+    </fieldset>
 }
+<div>
+    @Html.ActionLink("Back to List", "People")
+</div>
+
+
+
