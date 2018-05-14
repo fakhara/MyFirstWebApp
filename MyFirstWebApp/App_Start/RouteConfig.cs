@@ -48,6 +48,16 @@ namespace MyFirstWebApp
              url: "Home/Index/{id}",
              defaults: new { controller = "Home", action = "People", id = UrlParameter.Optional }
          );
+            routes.MapRoute(
+             name: "Partial",
+             url: "Home/Index/{id}",
+             defaults: new { controller = "Home", action = "Partial", id = UrlParameter.Optional }
+         );
+            routes.MapRoute(
+                         name: "Ajax",
+                         url: "Home/Index/{id}",
+                         defaults: new { controller = "Home", action = "Ajax", id = UrlParameter.Optional }
+                     );
         }
     }
 }

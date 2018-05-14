@@ -76,11 +76,13 @@ namespace MyFirstWebApp.Controllers
            
            
          }
-     public ActionResult Delete(int id)
-        {
+         public ActionResult Delete(int id)
+         {
             Person person = Person.DBPeople.SingleOrDefault(m => m.Id == id);
             Person.DBPeople.Remove(person);
             return RedirectToAction("People");
-        }   
+         }
+      
+
     }
 }

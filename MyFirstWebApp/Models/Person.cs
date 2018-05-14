@@ -14,12 +14,15 @@ namespace MyFirstWebApp.Models
         [Key]
         public int Id { get; set; }
         [Required(ErrorMessage ="Person Name is Mandatory")]
+        [StringLength(10)]
         [Display(Name =" Person Name")]
         public string Name { get; set; }
         [Required(ErrorMessage ="Phone No is Mandatory")]
+        [StringLength(10)]
         [Display(Name ="Phone NO")]
         public string PhoneNO { get; set; }
         [Required(ErrorMessage ="City Name is Mandatory")]
+        [StringLength(20)]
         [Display(Name ="City")]
         public string City { get; set; }
         public Person()
@@ -40,6 +43,11 @@ namespace MyFirstWebApp.Models
                 Person.DBPeople.Add(new Person { Name = "Wajeeha", PhoneNO = "0729876542", City = "Lamhult" });
                 Person.DBPeople.Add(new Person { Name = "Huma", PhoneNO = "07232244567", City = "Vislanda" });
                 Person.DBPeople.Add(new Person { Name = "Nazish", PhoneNO = "0726643219", City = "Sandbro" });
+                Person.DBPeople.Add(new Person { Name = "Farhat", PhoneNO = "0721237605", City = "Vitlanda" });
+                Person.DBPeople.Add(new Person { Name = "Hufsa", PhoneNO = "0721456789", City = "Växjö" });
+                Person.DBPeople.Add(new Person { Name = "Sana", PhoneNO = "0729876542", City = "Lamhult" });
+                Person.DBPeople.Add(new Person { Name = "Amna", PhoneNO = "07232244567", City = "Vislanda" });
+                Person.DBPeople.Add(new Person { Name = "Ayesha", PhoneNO = "0726643219", City = "Sandbro" });
             }
         }
     }

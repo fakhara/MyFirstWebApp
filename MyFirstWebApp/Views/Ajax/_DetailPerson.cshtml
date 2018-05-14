@@ -1,0 +1,21 @@
+﻿@model MyFirstWebApp.Models.Person
+<div class="col-md-4">
+    @Model.Name
+</div>
+<div class="col-md-3">
+    @Model.PhoneNO
+</div>
+<div class="col-md-3">
+    @Model.City
+</div>
+<div class="col-md-2">
+    @Ajax.ActionLink("Hide", "ListItemPerson", new { id = Model.Id },
+                       new AjaxOptions
+                       {
+                           UpdateTargetId = "PersonId" + Model.Id,
+                           InsertionMode = InsertionMode.Replace
+                       }
+                    );
+</div>
+
+
