@@ -1,5 +1,5 @@
 ﻿@using MyFirstWebApp.Models
-@model PagedList.IPagedList<Person>
+@model IPagedList<Person>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
@@ -35,7 +35,14 @@ new AjaxOptions
     <input type="search" name="searchingterm" />
     <input type="submit" value="Search BY Name" />
 </form>
+@Html.Partial("_ListPerson",Model)
+
+
 <div class="row">
+    <div class="pagedList" data-otf-target="#personList">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page}),
+         PagedListRenderOptions.MinimalWithItemCountText)
+    </div>
     <div class="col-md-12">
         @foreach (var item in Model)
         {
@@ -45,13 +52,8 @@ new AjaxOptions
     </div>
 
 </div>
-@*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
-
-@<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script>
+@*@<script>
     $(function () {
         {
             var ajaxFormSubmit = function () {
@@ -69,7 +71,7 @@ new AjaxOptions
             };
             $("form[data-otf-ajax='true']").submit(ajaxFormSubmit);
         });
-</script>
+</script>*@
 
 
 

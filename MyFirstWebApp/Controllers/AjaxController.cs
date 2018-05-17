@@ -16,47 +16,17 @@ namespace MyFirstWebApp.Controllers
             Person person = new Person();
              return View(Person.DBPeople);
         }
-       
-       /* public ViewResult Index( string sortOrder,string currentFilter,string searchString, int? page)
+        public ActionResult Index(string searchTerm = null, int page = 1)
         {
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.CitySortParm = sortOrder == "City" ? "city_desc" : "City";
-            if (searchString != null)
+            var person = Person.DBPeople.Where(m => searchTerm == null|| m.Name.StartsWith(searchTerm)).ToPagedList(page,10);
+           
+            if(Request.IsAjaxRequest())
             {
-                page = 1;
+                return PartialView("_listPerson", person);
             }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            ViewBag.CurrentFilter = searchString;
-            var person = from s in Person.DBPeople
-                           select s;
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                person = person.Where(s => s.Name.Contains(searchString)
-                                       || s.City.Contains(searchString));
-            }
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    person = person.OrderByDescending(s => s.Name);
-                    break;
-                case "City":
-                    person = person.OrderBy(s => s.City);
-                    break;
-                case "city_desc":
-                    person = person.OrderByDescending(s => s.City);
-                    break;
-                default:
-                    person = person.OrderBy(s => s.Name);
-                    break;
-            }
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
-            return View("Index",person.ToPagedList(pageNumber, pageSize));
-        }*/
+            return View(person);
+        }
+       
     
         public ActionResult ListItemPerson(int id)
         {
