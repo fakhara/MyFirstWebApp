@@ -12,10 +12,17 @@ namespace MyFirstWebApp.Controllers
         // GET: Partial
         public ActionResult Index()
         {
-            Person me = new Person();
-            me.personlist();
-
-            return View(Person.DBPeople);
+            PersonPartialVM vm = new PersonPartialVM(Person.DBPeople);
+            return View(vm);
+        }
+        public ActionResult PartPerson(int id)
+        {
+            Person person = Person.DBPeople.SingleOrDefault(x => x.Id == id);
+            if (person == null)
+            {
+                //error handelning
+            }
+            return PartialView("_PartPerson");
         }
     }
 }

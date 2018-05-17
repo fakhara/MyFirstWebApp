@@ -14,11 +14,11 @@
         @Model.City
     </div>
     <div class="col-md-2">
-        @Ajax.ActionLink("Edit", "DetailPerson", new { id = Model.Id },
+        @Ajax.ActionLink("Edit", "EditPerson", new { id = Model.Id },
                               new AjaxOptions
                               {
                                   UpdateTargetId = "PersonId" + Model.Id,
-                                  InsertionMode = InsertionMode.Replace
+                                  InsertionMode = InsertionMode.ReplaceWith
                               }
                            )
     </div>
@@ -27,7 +27,7 @@
                                new AjaxOptions
                                {
                                    UpdateTargetId = "PersonId" + Model.Id,
-                                   InsertionMode = InsertionMode.Replace
+                                   InsertionMode = InsertionMode.ReplaceWith
                                }
                             )
     </div>

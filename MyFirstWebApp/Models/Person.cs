@@ -28,10 +28,6 @@ namespace MyFirstWebApp.Models
         public Person()
         {
             Id = idCount++;
-            
-        }
-        public void personlist()
-        {
             if (Id == 0)
             {
                 Person.DBPeople.Add(new Person { Name = "Fakhara", PhoneNO = "0721237605", City = "Växjö" });
@@ -49,7 +45,9 @@ namespace MyFirstWebApp.Models
                 Person.DBPeople.Add(new Person { Name = "Amna", PhoneNO = "07232244567", City = "Vislanda" });
                 Person.DBPeople.Add(new Person { Name = "Ayesha", PhoneNO = "0726643219", City = "Sandbro" });
             }
+
         }
+        
     }
     
 }

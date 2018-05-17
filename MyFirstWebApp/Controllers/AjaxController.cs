@@ -13,33 +13,71 @@ namespace MyFirstWebApp.Controllers
         // GET: Ajax
         public ActionResult Index()
         {
-            Person me = new Person();
-            me.personlist();
-            return View(Person.DBPeople);
+            Person person = new Person();
+             return View(Person.DBPeople);
         }
        
-       /* public ActionResult Index(string searchBy,string search, int? page)
+       /* public ViewResult Index( string sortOrder,string currentFilter,string searchString, int? page)
         {
-            if (searchBy == "Name")
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.CitySortParm = sortOrder == "City" ? "city_desc" : "City";
+            if (searchString != null)
             {
-                return View("People", Person.DBPeople.Where(m => m.Name == search || search == null).ToList().ToPagedList(page ?? 1, 10));
+                page = 1;
             }
             else
             {
-                return View("People", Person.DBPeople.Where(m => m.City == search|| search == null).ToList().ToPagedList(page ?? 1,10));
+                searchString = currentFilter;
             }
-         }*/
+
+            ViewBag.CurrentFilter = searchString;
+            var person = from s in Person.DBPeople
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                person = person.Where(s => s.Name.Contains(searchString)
+                                       || s.City.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    person = person.OrderByDescending(s => s.Name);
+                    break;
+                case "City":
+                    person = person.OrderBy(s => s.City);
+                    break;
+                case "city_desc":
+                    person = person.OrderByDescending(s => s.City);
+                    break;
+                default:
+                    person = person.OrderBy(s => s.Name);
+                    break;
+            }
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View("Index",person.ToPagedList(pageNumber, pageSize));
+        }*/
+    
         public ActionResult ListItemPerson(int id)
         {
             Person person = Person.DBPeople.SingleOrDefault(m => m.Id == id);
 
             return PartialView("_listPerson", person);
         }
-        public ActionResult DetailPerson(int id)
+        public ActionResult EditPerson(int id)
         {
             Person person = Person.DBPeople.SingleOrDefault(m => m.Id == id);
 
-            return PartialView("_DetailPerson", person);
+            return PartialView("_EditSave", person);
+        }
+        public ActionResult EditSave(Person person)
+        {
+           Person OldPerson = Person.DBPeople.SingleOrDefault(m => m.Id == person.Id);
+            OldPerson.Name = person.Name;
+            OldPerson.PhoneNO = person.PhoneNO;
+            OldPerson.City = person.City;
+
+            return PartialView("_listPerson", OldPerson);
         }
         public ActionResult CreatePerson(Person person)
         {
@@ -47,6 +85,7 @@ namespace MyFirstWebApp.Controllers
             {
                 Person.DBPeople.Add(person);
                 return PartialView("_listPerson", person);
+               // return RedirectToAction("Index");
             }
             return new HttpStatusCodeResult(400);
             // return Content("");
@@ -55,7 +94,9 @@ namespace MyFirstWebApp.Controllers
         {
             Person person = Person.DBPeople.SingleOrDefault(m => m.Id == id);
             Person.DBPeople.Remove(person);
-            return RedirectToAction("Index");
+            return Content("");
+
+            //return RedirectToAction("Index");
 
         }
     }

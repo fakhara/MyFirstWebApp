@@ -15,7 +15,6 @@ namespace MyFirstWebApp.Controllers
         public ActionResult People()
         {
             Person me = new Person();
-            me.personlist();
      
             return View(Person.DBPeople);
         }

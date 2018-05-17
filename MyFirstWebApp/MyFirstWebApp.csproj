@@ -148,6 +148,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -178,6 +180,7 @@
     <Compile Include="Models\FeverCheck.cs" />
     <Compile Include="Models\GuessingGame.cs" />
     <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\PersonPartial VM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -201,10 +204,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Views\People\Create.cshtml" />
     <Content Include="Views\Partial\Index.cshtml" />
-    <Content Include="Views\Shared\_PersonList.cshtml" />
+    <Content Include="Views\Shared\_PartPerson.cshtml" />
     <Content Include="Views\Ajax\_listPerson.cshtml" />
-    <Content Include="Views\Ajax\_DetailPerson.cshtml" />
+    <Content Include="Views\Ajax\_EditSave.cshtml" />
     <Content Include="Views\Ajax\Index.cshtml" />
+    <Content Include="Views\Partial\PartIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

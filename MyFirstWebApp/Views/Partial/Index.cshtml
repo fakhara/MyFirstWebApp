@@ -1,6 +1,29 @@
-﻿@using MyFirstWebApp.Models
-@model List<Person>
-
-{
-   @Html.Partial("_PersonList");
+﻿@model MyFirstWebApp.Models.PersonPartialVM
+@{
+    ViewBag.Title = "Index";
 }
+<br/><br/><br/>
+
+<h2> PersonVM Index</h2>
+
+
+<div class="row">
+    <div class="col-md-4">
+        @foreach (var item in Model.persons)
+        {
+            <div class="row">
+                <div class="col-md-4">
+                    @item.Name
+                </div>
+                <div class="col-md-4">
+                    @item.PhoneNO
+                </div>
+                <div class="col-md-4">
+                    @item.City
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+<br/>

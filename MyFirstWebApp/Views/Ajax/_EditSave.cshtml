@@ -1,0 +1,40 @@
+﻿@model MyFirstWebApp.Models.Person
+
+
+<br/><br/>
+<div class="row" id="@("PersonId" + Model.Id)">
+    <div class="col-md-9">
+    @using (Ajax.BeginForm("EditSave",
+new AjaxOptions
+{
+InsertionMode = InsertionMode.ReplaceWith,
+UpdateTargetId = "PersonId" + Model.Id,
+}
+))
+    {
+      
+        @Html.HiddenFor(Model => Model.Id)
+        @Html.LabelFor(Model => Model.Name)
+        @Html.EditorFor(Model => Model.Name)
+        @Html.LabelFor(model => Model.PhoneNO)
+        @Html.EditorFor(Model => Model.PhoneNO)
+        @Html.LabelFor(Model => Model.City)
+        @Html.EditorFor(Model => Model.City)
+        <input type="Submit" value="save" />
+
+
+    }
+</div>
+   
+<div class="col-md-3">
+    @Ajax.ActionLink("Cancel", "ListItemPerson", new { id = Model.Id },
+                           new AjaxOptions
+                           {
+                               UpdateTargetId = "PersonId" + Model.Id,
+                               InsertionMode = InsertionMode.ReplaceWith
+                           }
+                        );
+</div>
+    </div>
+
+
