@@ -209,6 +209,7 @@
     <Content Include="Views\Ajax\_EditSave.cshtml" />
     <Content Include="Views\Ajax\Index.cshtml" />
     <Content Include="Views\Partial\PartIndex.cshtml" />
+    <Content Include="Views\Ajax\_SearchPersonList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

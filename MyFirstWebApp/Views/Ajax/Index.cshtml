@@ -1,7 +1,6 @@
 ﻿@using MyFirstWebApp.Models
-@model IPagedList<Person>
-@using PagedList.Mvc;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@model List<Person>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MyLayout.cshtml";
@@ -13,7 +12,7 @@
 new AjaxOptions
 {
     InsertionMode = InsertionMode.InsertBefore,
-    UpdateTargetId = "startOfPersonList"
+    UpdateTargetId = "EndOfPersonList"
 }
 ))
     {
@@ -29,49 +28,27 @@ new AjaxOptions
 
 
     }
-</div><br />
-<form method="get" action="@Url.Action("Index")"
-      data-otf-ajax="true" data-otf-target="#personList">
-    <input type="search" name="searchingterm" />
-    <input type="submit" value="Search BY Name" />
-</form>
-@Html.Partial("_ListPerson",Model)
-
-
-<div class="row">
-    <div class="pagedList" data-otf-target="#personList">
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page}),
-         PagedListRenderOptions.MinimalWithItemCountText)
-    </div>
-    <div class="col-md-12">
-        @foreach (var item in Model)
-        {
-            Html.RenderAction("ListItemPerson", new { id = item.Id });
-        }
-        <span id="EndOfPersonList"></span>
+</div><hr />
+@using (Ajax.BeginForm("Search", new AjaxOptions
+{
+    //HttpMethod = "Get",
+    UpdateTargetId = "SearchResults",
+    InsertionMode = InsertionMode.Replace
+}))
+{
+    <div>
+        @Html.DisplayName("Search by Name/City")
+        @Html.TextBox("filterName")
+        <input type="submit" value="Filter" />
     </div>
 
-</div>
+}
 
-@*@<script>
-    $(function () {
-        {
-            var ajaxFormSubmit = function () {
-                var $form = $(this);
-                var options = {
-                    url: $form.attr("action"),
-                    type: $form.attr("method"),
-                    data: $form.serialize()
-                };
-                $.ajax(options).done(function (data) {
-                    var $target = $($form.attr("data-otf-target"));
-                    $target.replaceWith(data);
-                });
-                return false;
-            };
-            $("form[data-otf-ajax='true']").submit(ajaxFormSubmit);
-        });
-</script>*@
+    <div class="row">
+        <div class="col-md-12" id="SearchResults">
+            @Html.Partial("_SearchPersonList")
+        </div>
+    </div>
+<br />
 
-
-
+    

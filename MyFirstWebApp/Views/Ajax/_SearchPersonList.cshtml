@@ -1,0 +1,38 @@
+﻿@using MyFirstWebApp.Models
+@model List<Person>
+
+<div class="row" id="SearchResults">
+    @foreach (var item in Model)
+    {
+        <div class="row" id="@("PersonId"+item.Id)">
+            <div class="col-md-4">
+                @Html.DisplayFor(ModelItem => item.Name)
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayFor(ModelItem => item.PhoneNO)
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayFor(ModelItem => item.City)
+            </div>
+            <div class="col-md-2">
+                @Ajax.ActionLink("Edit", "EditPerson", new { id = item.Id },
+                                            new AjaxOptions
+                                            {
+                                                UpdateTargetId = "PersonId" + item.Id,
+                                                InsertionMode = InsertionMode.ReplaceWith
+                                            }
+                                         )
+            </div>
+            <div class="col-md-2">
+                @Ajax.ActionLink("Delete", "Delete", new { id = item.Id },
+                                             new AjaxOptions
+                                             {
+                                                 UpdateTargetId = "PersonId" + item.Id,
+                                                 InsertionMode = InsertionMode.ReplaceWith
+                                             }
+                                          )
+            </div>
+        </div>
+    }
+    <span id="EndOfPersonList"></span>
+</div>

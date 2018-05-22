@@ -1,5 +1,4 @@
 ﻿using MyFirstWebApp.Models;
-using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,19 +15,7 @@ namespace MyFirstWebApp.Controllers
             Person person = new Person();
              return View(Person.DBPeople);
         }
-        public ActionResult Index(string searchTerm = null, int page = 1)
-        {
-            var person = Person.DBPeople.Where(m => searchTerm == null|| m.Name.StartsWith(searchTerm)).ToPagedList(page,10);
-           
-            if(Request.IsAjaxRequest())
-            {
-                return PartialView("_listPerson", person);
-            }
-            return View(person);
-        }
-       
-    
-        public ActionResult ListItemPerson(int id)
+      public ActionResult ListItemPerson(int id)
         {
             Person person = Person.DBPeople.SingleOrDefault(m => m.Id == id);
 
@@ -55,19 +42,25 @@ namespace MyFirstWebApp.Controllers
             {
                 Person.DBPeople.Add(person);
                 return PartialView("_listPerson", person);
-               // return RedirectToAction("Index");
             }
             return new HttpStatusCodeResult(400);
-            // return Content("");
+           
         }
         public ActionResult Delete(int id)
         {
             Person person = Person.DBPeople.SingleOrDefault(m => m.Id == id);
             Person.DBPeople.Remove(person);
             return Content("");
-
-            //return RedirectToAction("Index");
-
+        }
+        
+        public ActionResult Search(string filterName, string currentFilter,int? page)
+        {
+            var personse = from m in Person.DBPeople select m;
+            if (!string.IsNullOrEmpty(filterName))
+            {
+                personse = personse.Where(i => i.Name.ToLower().Contains(filterName) || i.City.ToLower().Contains(filterName));
+            }
+                return PartialView("_SearchPersonList", personse.ToList());
         }
     }
 }

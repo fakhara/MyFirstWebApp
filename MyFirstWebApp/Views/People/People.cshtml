@@ -11,11 +11,11 @@
 </p>
 @using (Html.BeginForm("Search", "People", FormMethod.Get))
 {
-    <div>
-        Search By Name: @Html.TextBox("Name")
-        Search By City: @Html.TextBox("City")
-        <input type="submit" value="Filter" />
-    </div>
+<div>
+    Search By Name: @Html.TextBox("Name")
+    Search By City: @Html.TextBox("City")
+    <input type="submit" value="Filter" />
+</div>
 }
 <table class="table table-striped">
     <thead>
