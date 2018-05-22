@@ -53,7 +53,7 @@ namespace MyFirstWebApp.Controllers
             return Content("");
         }
         
-        public ActionResult Search(string filterName, string currentFilter,int? page)
+        public ActionResult Search(string filterName)
         {
             var personse = from m in Person.DBPeople select m;
             if (!string.IsNullOrEmpty(filterName))
